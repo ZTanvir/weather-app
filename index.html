@@ -7,12 +7,25 @@
     <title>Weather App</title>
 </head>
 <body>
-    <form id="user-input">
-        <div>
-            <input type="text" name="location" id="search-location" placeholder="Search Location">
+    <nav>
+        <div class="weather-logo">
+            <p><i class="fa-solid fa-meteor"></i><span class="app-name">Cloud Cover</span></p>
         </div>
-        <button type="submit">Search</button>
-    </form>
+        <form id="user-input">
+            <div class="user-input__box">
+                <input type="text" name="location" id="search-location" placeholder="Search Location">
+            </div>
+            <button class="submit-btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i></i></button>
+        </form>
+        <div class="fahrenheit-celsius">
+            <button class="fahrenheit-celsius__celsius">°C</button>
+            <button class="fahrenheit-celsius__fahrenheit">°F</button>
+        </div>
+    </nav>
+    <main>
+        
+    </main>
+    
     <script src="./script/script.js"></script>
     <script src="https://kit.fontawesome.com/bcc4a85fda.js" crossorigin="anonymous"></script>
 </body>
