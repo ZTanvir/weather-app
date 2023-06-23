@@ -16,6 +16,7 @@ searchLocationEl.addEventListener("input", (e) => {
 
 // api call es6
 function getWeatherData(requestUrlType, location) {
+  let fullData = null;
   fetch(
     `http://api.weatherapi.com/v1/${requestUrlType}.json?key=d37749f2868143febc2151657230606&q=${location}}`
   )
@@ -23,18 +24,20 @@ function getWeatherData(requestUrlType, location) {
       return response.json();
     })
     .then((weatherData) => {
-      let fullData = weatherData;
-      // console.log(fullData);
-      return fullData;
+      fullData = weatherData;
+      console.log(fullData);
+      return (fullData = weatherData);
     })
     .catch((err) => {
       console.log(err);
     });
+  return fullData;
 }
-// getWeatherData("current", "london");
+// console.log(getWeatherData("current", "london"));
 async function weatherData(requestUrlType, location) {
   let response = await fetch(
     `http://api.weatherapi.com/v1/${requestUrlType}.json?key=d37749f2868143febc2151657230606&q=${location}`
   );
   return response.json();
 }
+weatherData("current", "london");
