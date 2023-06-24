@@ -84,7 +84,32 @@ body {
   font-family: var(--ff-roboto);
 }
 
+nav {
+  display: grid;
+  gap: 0.5rem;
+}
+
 .weather-logo-title {
   text-align: center;
   font-size: 2rem;
+}
+
+#user-input {
+  display: flex;
+  /* position: relative; */
+}
+
+#search-location {
+  width: 16rem;
+  height: 2.5rem;
+  border-radius: 2rem;
+  padding: 1rem;
+}
+
+.submit-btn {
+  border: none;
+  background: none;
+  position: relative;
+  left: -40px;
+  cursor: pointer;
 }
