@@ -137,6 +137,12 @@ nav {
 /* city country section */
 .city-county>h2 {
   text-align: center;
+  font-size: 1.875rem;
+}
+
+.date-time>h4 {
+  font-size: 1.25rem;
+  font-weight: var(--fw-regular);
 }
 
 /* Date time section */
@@ -148,7 +154,20 @@ nav {
 .current-weather {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin: 1rem 0rem;
+}
+
+.current-weather__temperature {
+  font-size: 4rem;
+}
+
+.current-weather__additional-info {
+  font-size: 1.2rem;
+}
+
+.additional-info__condition {
+  font-weight: var(--fw-bold);
 }
 
 /* current weather details */
