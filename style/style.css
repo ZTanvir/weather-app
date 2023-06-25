@@ -133,6 +133,12 @@ nav {
   border-radius: 1rem;
 }
 
+/* city country section */
+.city-county>h2 {
+  text-align: center;
+}
+
+/* Date time section */
 .date-time>h4 {
   text-align: center;
 }
@@ -147,4 +153,20 @@ nav {
   .sunrise-sunset-moon-data) {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+}
+
+.weather-forecast>h2 {
+  text-align: center;
+}
+
+/* weather forecast */
+:is(.day-zero,
+  .day-one,
+  .day-two,
+  .day-three,
+  .day-four,
+  .day-five,
+  .day-six) {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
 }
