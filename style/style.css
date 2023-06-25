@@ -171,6 +171,8 @@ nav {
 }
 
 /* current weather details */
+.weather-details {}
+
 .weather-details .wind-humidity-uv-data {
   margin-bottom: 1rem;
 }
@@ -184,6 +186,10 @@ nav {
 .weather-forecast>h2 {
   text-align: center;
   margin: 1rem 0rem;
+}
+
+.current-data-bigfont {
+  font-size: 1.5rem;
 }
 
 /* weather forecast */
