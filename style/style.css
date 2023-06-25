@@ -132,3 +132,19 @@ nav {
   cursor: pointer;
   border-radius: 1rem;
 }
+
+.date-time>h4 {
+  text-align: center;
+}
+
+/* Current weather report */
+.current-weather {
+  display: flex;
+  justify-content: space-between;
+}
+
+:is(.wind-humidity-uv-data,
+  .sunrise-sunset-moon-data) {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}

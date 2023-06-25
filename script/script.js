@@ -40,6 +40,6 @@ async function weatherData(requestUrlType, location) {
   );
   return response.json();
 }
-weatherData("current", "london").then((data) => {
-  console.log(data);
-});
+// weatherData("current", "london").then((data) => {
+//   console.log(data);
+// });
