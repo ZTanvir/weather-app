@@ -22,7 +22,7 @@ searchLocationEl.addEventListener("input", (e) => {
     // console.log(searchLocationEl.value);
   }
 });
-
+// current weather data
 async function weatherData(requestUrlType, location) {
   try {
     let response = await fetch(
@@ -34,32 +34,60 @@ async function weatherData(requestUrlType, location) {
     console.log(err);
   }
 }
-weatherData("current", "dhaka")
-  .then((data) => {
-    if (data["error"]) {
-      console.log(data["error"].message);
-    } else {
-      console.log(data);
-      console.log(data.current.last_updated);
-      updateTimeDate(data.current.last_updated);
-      updateCityCountry(data.location.name, data.location.country);
-      currentWeatherData(
-        data.current.condition.icon,
-        data.current.temp_c,
-        data.current.condition.text,
-        data.current.feelslike_c
-      );
-      windHumidityUvData(
-        data.current.wind_dir,
-        data.current.wind_kph,
-        data.current.humidity,
-        data.current.uv
-      );
-    }
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+// Astronomy weather data
+async function weatherAstronomyData(requestUrlType, location, todaysDate) {
+  try {
+    let response = await fetch(
+      `http://api.weatherapi.com/v1/${requestUrlType}.json?key=d37749f2868143febc2151657230606&q=${location}&dt=${todaysDate}`
+    );
+    let data = await response.json();
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+}
+// let date = new Date();
+// const [year, month, day] = [date.getFullYear(), date.getMonth(), date.getDay()];
+// let today = `${year}-${month}-${day}`;
+// console.log(year, month, day, today);
+// weatherData("astronomy", "dhaka", today).then((data) => {
+//   if (data["error"]) {
+//     console.log(data["error"].message);
+//   } else {
+//     console.log(data);
+//     sunMoonData(
+//       data.astronomy.astro.sunrise,
+//       data.astronomy.astro.sunset,
+//       data.astronomy.astro.moon_phase
+//     );
+//   }
+// });
+// weatherData("current", "dhaka")
+//   .then((data) => {
+//     if (data["error"]) {
+//       console.log(data["error"].message);
+//     } else {
+//       console.log(data);
+//       console.log(data.current.last_updated);
+//       updateTimeDate(data.current.last_updated);
+//       updateCityCountry(data.location.name, data.location.country);
+//       currentWeatherData(
+//         data.current.condition.icon,
+//         data.current.temp_c,
+//         data.current.condition.text,
+//         data.current.feelslike_c
+//       );
+//       windHumidityUvData(
+//         data.current.wind_dir,
+//         data.current.wind_kph,
+//         data.current.humidity,
+//         data.current.uv
+//       );
+//     }
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
 
 // get city and country dom
 function updateCityCountry(city, country) {
@@ -126,4 +154,14 @@ function windHumidityUvData(windDirection, windSpeed, humidity, uv) {
   windSpeedEl.textContent = ` ${windSpeed}Kph`;
   humidityEl.textContent = `${humidity}%`;
   uvDataEl.textContent = uv;
+}
+//  get sunrise,sunset,moon phase data
+function sunMoonData(sunrise, sunset, moonPhase) {
+  const sunriseEl = document.querySelector(".sunrise__data-details");
+  const sunsetEl = document.querySelector(".sunset__data-details ");
+  const moonPhaseEl = document.querySelector(".moon-phase__details");
+
+  sunriseEl.textContent = sunrise;
+  sunsetEl.textContent = sunset;
+  moonPhaseEl.textContent = moonPhase;
 }
