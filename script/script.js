@@ -28,25 +28,32 @@ async function weatherData(requestUrlType, location) {
     let response = await fetch(
       `http://api.weatherapi.com/v1/${requestUrlType}.json?key=d37749f2868143febc2151657230606&q=${location}`
     );
-    return response.json();
+    let data = await response.json();
+    return data;
   } catch (err) {
     console.log(err);
   }
 }
-// weatherData("current", "dhaka")
-//   .then((data) => {
-//     if (data["error"]) {
-//       console.log(data["error"].message);
-//     } else {
-//       console.log(data);
-//       console.log(data.current.last_updated);
-//       updateTimeDate(data.current.last_updated);
-//       updateCityCountry(data.location.name, data.location.country);
-//     }
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });
+weatherData("current", "dhaka")
+  .then((data) => {
+    if (data["error"]) {
+      console.log(data["error"].message);
+    } else {
+      console.log(data);
+      console.log(data.current.last_updated);
+      updateTimeDate(data.current.last_updated);
+      updateCityCountry(data.location.name, data.location.country);
+      currentWeatherData(
+        data.current.condition.icon,
+        data.current.temp_c,
+        data.current.condition.text,
+        data.current.feelslike_c
+      );
+    }
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
 // get city and country dom
 function updateCityCountry(city, country) {
@@ -76,4 +83,27 @@ function twelveHourClock(hour) {
     return `${hour - 12} am`;
   }
   return `${hour} am`;
+}
+
+// get currentweather image , temperature, condition,feels like
+
+function currentWeatherData(weatherImg, temperature, condition, feelsLike) {
+  const weatherImage = document.querySelector(".current-weather__image");
+  const weatherTemperature = document.querySelector(
+    ".current-weather__temperature"
+  );
+  const weatherCondition = document.querySelector(
+    ".additional-info__condition"
+  );
+  const weatherFeelsLike = document.querySelector(
+    ".additional-info__feels-like"
+  );
+  weatherImage.src = weatherImg;
+  weatherImage.alt = condition;
+  weatherImage.title = condition;
+
+  weatherTemperature.textContent = `${temperature}°C`;
+  weatherCondition.textContent = condition;
+
+  weatherFeelsLike.textContent = `${feelsLike}°C`;
 }
