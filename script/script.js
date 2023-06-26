@@ -49,6 +49,12 @@ weatherData("current", "dhaka")
         data.current.condition.text,
         data.current.feelslike_c
       );
+      windHumidityUvData(
+        data.current.wind_dir,
+        data.current.wind_kph,
+        data.current.humidity,
+        data.current.uv
+      );
     }
   })
   .catch((error) => {
@@ -106,4 +112,16 @@ function currentWeatherData(weatherImg, temperature, condition, feelsLike) {
   weatherCondition.textContent = condition;
 
   weatherFeelsLike.textContent = `${feelsLike}°C`;
+}
+// get wind ,humidity,uv data
+function windHumidityUvData(windDirection, windSpeed, humidity, uv) {
+  const windDirectionEl = document.querySelector(".wind-direction");
+  const windSpeedEl = document.querySelector(".wind-speed");
+  const humidityEl = document.querySelector(".humidity__data-details");
+  const uvDataEl = document.querySelector(".uv__data-details");
+
+  windDirectionEl.textContent = windDirection;
+  windSpeedEl.textContent = ` ${windSpeed}Kph`;
+  humidityEl.textContent = `${humidity}%`;
+  uvDataEl.textContent = uv;
 }
