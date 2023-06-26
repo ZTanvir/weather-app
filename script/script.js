@@ -46,11 +46,13 @@ async function weatherAstronomyData(requestUrlType, location, todaysDate) {
     console.log(err);
   }
 }
+// Weather forcast
+
 // let date = new Date();
 // const [year, month, day] = [date.getFullYear(), date.getMonth(), date.getDay()];
 // let today = `${year}-${month}-${day}`;
 // console.log(year, month, day, today);
-// weatherData("astronomy", "dhaka", today).then((data) => {
+// weatherAstronomyData("astronomy", "dhaka", today).then((data) => {
 //   if (data["error"]) {
 //     console.log(data["error"].message);
 //   } else {
@@ -96,6 +98,7 @@ function updateCityCountry(city, country) {
   cityEl.textContent = city;
   countryEl.textContent = country;
 }
+
 // get date and time dom
 function updateTimeDate(dateTime) {
   let dateEl = document.querySelector(".date-time__date");
@@ -122,7 +125,6 @@ function twelveHourClock(hour, min) {
 }
 
 // get currentweather image , temperature, condition,feels like
-
 function currentWeatherData(weatherImg, temperature, condition, feelsLike) {
   const weatherImage = document.querySelector(".current-weather__image");
   const weatherTemperature = document.querySelector(
@@ -131,9 +133,7 @@ function currentWeatherData(weatherImg, temperature, condition, feelsLike) {
   const weatherCondition = document.querySelector(
     ".additional-info__condition"
   );
-  const weatherFeelsLike = document.querySelector(
-    ".additional-info__feels-like"
-  );
+  const weatherFeelsLike = document.querySelector(".feels-like-temperature");
   weatherImage.src = weatherImg;
   weatherImage.alt = condition;
   weatherImage.title = condition;
@@ -143,6 +143,7 @@ function currentWeatherData(weatherImg, temperature, condition, feelsLike) {
 
   weatherFeelsLike.textContent = `${feelsLike}°C`;
 }
+
 // get wind ,humidity,uv data
 function windHumidityUvData(windDirection, windSpeed, humidity, uv) {
   const windDirectionEl = document.querySelector(".wind-direction");
@@ -155,6 +156,7 @@ function windHumidityUvData(windDirection, windSpeed, humidity, uv) {
   humidityEl.textContent = `${humidity}%`;
   uvDataEl.textContent = uv;
 }
+
 //  get sunrise,sunset,moon phase data
 function sunMoonData(sunrise, sunset, moonPhase) {
   const sunriseEl = document.querySelector(".sunrise__data-details");
