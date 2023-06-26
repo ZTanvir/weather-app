@@ -4,42 +4,48 @@ const searchLocationEl = document.querySelector("#search-location");
 
 formEl.addEventListener("submit", (e) => {
   e.preventDefault();
-  console.log("form");
+  let weatherLocation = searchLocationEl.value;
+  weatherData("current").then((data) => {
+    if (data["error"]) {
+      console.log(data["error"].message);
+    } else {
+    }
+  });
+  // weatherData("current", "london").then((data) => {
+  //   console.log(data);
+  // });
   formEl.reset();
 });
 
 searchLocationEl.addEventListener("input", (e) => {
   if (!searchLocationEl.value == "") {
-    console.log(searchLocationEl.value);
+    // console.log(searchLocationEl.value);
   }
 });
 
-// api call es6
-function getWeatherData(requestUrlType, location) {
-  let fullData = null;
-  fetch(
-    `http://api.weatherapi.com/v1/${requestUrlType}.json?key=d37749f2868143febc2151657230606&q=${location}}`
-  )
-    .then((response) => {
-      return response.json();
-    })
-    .then((weatherData) => {
-      fullData = weatherData;
-      console.log(fullData);
-      return (fullData = weatherData);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  return fullData;
-}
-// console.log(getWeatherData("current", "london"));
 async function weatherData(requestUrlType, location) {
-  let response = await fetch(
-    `http://api.weatherapi.com/v1/${requestUrlType}.json?key=d37749f2868143febc2151657230606&q=${location}`
-  );
-  return response.json();
+  try {
+    let response = await fetch(
+      `http://api.weatherapi.com/v1/${requestUrlType}.json?key=d37749f2868143febc2151657230606&q=${location}`
+    );
+    return response.json();
+  } catch (err) {
+    console.log(err);
+  }
 }
-// weatherData("current", "london").then((data) => {
-//   console.log(data);
+// weatherData("current", "dhaka").then((data) => {
+//   if (data["error"]) {
+//     console.log(data["error"].message);
+//   } else {
+//     console.log(data);
+//     getCityCountry(data.location.name, data.location.country);
+//   }
 // });
+
+// get city and country dom
+function getCityCountry(city, country) {
+  let cityEl = document.querySelector(".city-county__city");
+  let countryEl = document.querySelector(".city-county__country");
+  cityEl.textContent = city;
+  countryEl.textContent = country;
+}
