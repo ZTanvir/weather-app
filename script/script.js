@@ -73,22 +73,24 @@ function updateTimeDate(dateTime) {
   let dateEl = document.querySelector(".date-time__date");
   let timeEl = document.querySelector(".date-time__time");
   dateTime = dateTime.split(" ");
-  let time = twelveHourClock(dateTime[1]);
+  let hourMin = dateTime[1].split(":");
+  let [hour, min] = [Number(hourMin[0]), hourMin[1]];
+  let time = twelveHourClock(hour, min);
   dateEl.textContent = dateTime[0];
   timeEl.textContent = time;
 }
 
 // convert time to twelve hour formate
-function twelveHourClock(hour) {
+function twelveHourClock(hour, min) {
   if (hour >= 12 && hour <= 23) {
     if (hour == 12) {
-      return `${hour} pm`;
+      return `${hour}:${min} pm`;
     }
-    return `${hour - 12} pm`;
+    return `${hour - 12}:${min} pm`;
   } else if (hour == 24) {
-    return `${hour - 12} am`;
+    return `${hour - 12}:${min} am`;
   }
-  return `${hour} am`;
+  return `${hour}:${min} am`;
 }
 
 // get currentweather image , temperature, condition,feels like
