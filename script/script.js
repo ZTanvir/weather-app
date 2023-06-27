@@ -46,11 +46,42 @@ async function weatherAstronomyData(requestUrlType, location, todaysDate) {
     console.log(err);
   }
 }
-// Weather forcast
+// Weather forecast
+async function weatherForecast(requestUrlType, location, forecastDate) {
+  try {
+    let response = await fetch(
+      `http://api.weatherapi.com/v1/${requestUrlType}.json?key=d37749f2868143febc2151657230606&q=${location}&dt=${forecastDate}&days=3&hour=12`
+    );
+    let data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+for (let i = 1; i <= 7; i++) {
+  let date = new Date();
+  // increase date by 1
+  // pass the date to weather forecast parameter to get that days forecast
+  const [year, month, day] = [
+    date.getFullYear(),
+    date.getMonth() + 1,
+    date.getDate(date.setDate(date.getDate() + i)),
+  ];
+  let forecastDate = `${year}-${month + 1}-${day}`;
 
+  console.log(forecastDate);
+  weatherForecast("forecast", "dhaka", forecastDate).then((data) => {
+    console.log(data);
+  });
+}
 // let date = new Date();
-// const [year, month, day] = [date.getFullYear(), date.getMonth(), date.getDay()];
-// let today = `${year}-${month}-${day}`;
+// console.log(date.getDate());
+// const [year, month, day] = [
+//   date.getFullYear(),
+//   date.getMonth(),
+//   date.getDate(),
+// ];
+// let today = `${year}-${month + 1}-${day}`;
 // console.log(year, month, day, today);
 // weatherAstronomyData("astronomy", "dhaka", today).then((data) => {
 //   if (data["error"]) {
