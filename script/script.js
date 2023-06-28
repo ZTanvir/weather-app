@@ -58,22 +58,62 @@ async function weatherForecast(requestUrlType, location, forecastDate) {
     console.log(error);
   }
 }
+let foreCastObj = [];
+let forecastDates = [];
 for (let i = 1; i <= 7; i++) {
   let date = new Date();
   // increase date by 1
   // pass the date to weather forecast parameter to get that days forecast
   const [year, month, day] = [
     date.getFullYear(),
-    date.getMonth() + 1,
+    date.getMonth(),
     date.getDate(date.setDate(date.getDate() + i)),
   ];
-  let forecastDate = `${year}-${month + 1}-${day}`;
-
-  console.log(forecastDate);
-  weatherForecast("forecast", "dhaka", forecastDate).then((data) => {
-    console.log(data);
-  });
+  let forecastDateFormated = `${year}-${month}-${day}`;
+  forecastDates.push(forecastDateFormated);
 }
+console.log(forecastDates);
+async function weatherForcastObj(requestUrlType, location) {
+  // for (let forecastDate of forecastDates) {
+  //   console.log(forecastDate);
+  let response = await fetch(
+    `http://api.weatherapi.com/v1/${requestUrlType}.json?key=d37749f2868143febc2151657230606&q=${location}&dt=2023-&days=3&hour=12`
+  );
+
+  let data = await response.json();
+  console.log(data);
+
+  await Promise.all(
+    forecastDates.map(async (forecastDate) => {
+      console.log(forecastDate);
+      let response = await fetch(
+        `http://api.weatherapi.com/v1/${requestUrlType}.json?key=d37749f2868143febc2151657230606&q=${location}&dt=${forecastDate}&days=3&hour=12`
+      );
+      let data = await response.json();
+      console.log(data);
+      foreCastObj.push(data);
+    })
+  );
+}
+// weatherForcastObj("forecast", "dhaka");
+// console.log(foreCastObj);
+// for (let i = 1; i <= 7; i++) {
+//   let date = new Date();
+//   // increase date by 1
+//   // pass the date to weather forecast parameter to get that days forecast
+//   const [year, month, day] = [
+//     date.getFullYear(),
+//     date.getMonth() + 1,
+//     date.getDate(date.setDate(date.getDate() + i)),
+//   ];
+//   let forecastDate = `${year}-${month + 1}-${day}`;
+
+//   console.log(forecastDate);
+//   weatherForecast("forecast", "dhaka", forecastDate).then((data) => {
+//     console.log(data);
+//   });
+// }
+
 // let date = new Date();
 // console.log(date.getDate());
 // const [year, month, day] = [
