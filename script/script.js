@@ -238,4 +238,27 @@ function getDayFromDate(date) {
   let day = weeks[d.getDay()];
   return day;
 }
-console.log(getDayFromDate("2023-07-2"));
+// get nodelist for daily weather forecast data
+function getDailyForecastDom(domList, conditionImg, temperature) {
+  let nodeList = document.querySelectorAll(domList);
+  let conditionImgEl = document.querySelector(conditionImg);
+  let temperatureEl = document.querySelector(temperature);
+
+  let nodelistArray = [...nodeList];
+  nodelistArray.push(conditionImgEl);
+  nodelistArray.push(temperatureEl);
+
+  console.log(nodelistArray);
+  return nodelistArray;
+}
+getDailyForecastDom(".day-zero > p", ".day-zero__condition", ".day-zero__temp");
+// get forecast data from api and insert into day
+function updateDailyForecast(
+  date,
+  condition,
+  temperature,
+  chanceOfRain,
+  maxTemp,
+  minTemp,
+  domList
+) {}
