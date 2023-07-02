@@ -48,7 +48,6 @@ async function weatherAstronomyData(requestUrlType, location, todaysDate) {
 }
 // store weather forecast data
 function getDateForForecastapi(numberOfDays) {
-  let foreCastObj = [];
   // store the date that will be pass to the weather forecast api
   let forecastDates = [];
   for (let i = 1; i <= numberOfDays; i++) {
@@ -65,20 +64,23 @@ function getDateForForecastapi(numberOfDays) {
     let forecastDateFormated = `${year}-${month}-${day}`;
     forecastDates.push(forecastDateFormated);
   }
+  return forecastDates;
 }
+let foreCastObj = [];
 // Weather forecast api call
-async function weatherForcastObj(requestUrlType, location) {
+async function weatherForcastObj(requestUrlType, location, forecastDataObj) {
+  let forecastDates = getDateForForecastapi(7);
   await Promise.all(
     forecastDates.map(async (forecastDate) => {
       let response = await fetch(
         `http://api.weatherapi.com/v1/${requestUrlType}.json?key=d37749f2868143febc2151657230606&q=${location}&dt=${forecastDate}&days=3&hour=12`
       );
       let data = await response.json();
-      foreCastObj.push(data);
+      forecastDataObj.push(data);
     })
   );
 }
-weatherForcastObj("forecast", "dhaka");
+weatherForcastObj("forecast", "dhaka", foreCastObj);
 console.log(foreCastObj);
 // for (let i = 1; i <= 7; i++) {
 //   let date = new Date();
