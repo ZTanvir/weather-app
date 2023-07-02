@@ -83,70 +83,66 @@ async function weatherForcastObj(requestUrlType, location) {
   return foreCastObj;
 }
 let dataApi = weatherForcastObj("forecast", "dhaka");
-// for (let i = 1; i <= 7; i++) {
-//   let date = new Date();
-//   // increase date by 1
-//   // pass the date to weather forecast parameter to get that days forecast
-//   const [year, month, day] = [
-//     date.getFullYear(),
-//     date.getMonth() + 1,
-//     date.getDate(date.setDate(date.getDate() + i)),
-//   ];
-//   let forecastDate = `${year}-${month + 1}-${day}`;
+for (let i = 1; i <= 7; i++) {
+  let date = new Date();
+  // increase date by 1
+  // pass the date to weather forecast parameter to get that days forecast
+  const [year, month, day] = [
+    date.getFullYear(),
+    date.getMonth() + 1,
+    date.getDate(date.setDate(date.getDate() + i)),
+  ];
+  let forecastDate = `${year}-${month + 1}-${day}`;
 
-//   console.log(forecastDate);
-//   weatherForecast("forecast", "dhaka", forecastDate).then((data) => {
-//     console.log(data);
-//   });
-// }
+  console.log(forecastDate);
+}
 
-// let date = new Date();
-// console.log(date.getDate());
-// const [year, month, day] = [
-//   date.getFullYear(),
-//   date.getMonth(),
-//   date.getDate(),
-// ];
-// let today = `${year}-${month + 1}-${day}`;
-// console.log(year, month, day, today);
-// weatherAstronomyData("astronomy", "dhaka", today).then((data) => {
-//   if (data["error"]) {
-//     console.log(data["error"].message);
-//   } else {
-//     console.log(data);
-//     sunMoonData(
-//       data.astronomy.astro.sunrise,
-//       data.astronomy.astro.sunset,
-//       data.astronomy.astro.moon_phase
-//     );
-//   }
-// });
-// weatherData("current", "dhaka")
-//   .then((data) => {
-//     if (data["error"]) {
-//       console.log(data["error"].message);
-//     } else {
-//       console.log(data);
-//       console.log(data.current.last_updated);
-//       updateTimeDate(data.current.last_updated);
-//       updateCityCountry(data.location.name, data.location.country);
-//       currentWeatherData(
-//         data.current.condition.icon,
-//         data.current.temp_c,
-//         data.current.condition.text,
-//         data.current.feelslike_c
-//       );
-//       windHumidityUvData(
-//         data.current.wind_dir,
-//         data.current.wind_kph,
-//         data.current.humidity,
-//         data.current.uv
-//       );
-//     }
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });
+let date = new Date();
+const [year, month, day] = [
+  date.getFullYear(),
+  date.getMonth(),
+  date.getDate(),
+];
+let today = `${year}-${month + 1}-${day}`;
+console.log(year, month, day, today);
+weatherAstronomyData("astronomy", "dhaka", today).then((data) => {
+  if (data["error"]) {
+    console.log(data["error"].message);
+  } else {
+    console.log(data);
+    sunMoonData(
+      data.astronomy.astro.sunrise,
+      data.astronomy.astro.sunset,
+      data.astronomy.astro.moon_phase
+    );
+  }
+});
+weatherData("current", "dhaka")
+  .then((data) => {
+    if (data["error"]) {
+      console.log(data["error"].message);
+    } else {
+      console.log(data);
+      console.log(data.current.last_updated);
+      updateTimeDate(data.current.last_updated);
+      updateCityCountry(data.location.name, data.location.country);
+      currentWeatherData(
+        data.current.condition.icon,
+        data.current.temp_c,
+        data.current.condition.text,
+        data.current.feelslike_c
+      );
+      windHumidityUvData(
+        data.current.wind_dir,
+        data.current.wind_kph,
+        data.current.humidity,
+        data.current.uv
+      );
+    }
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
 // get city and country dom
 function updateCityCountry(city, country) {
@@ -248,7 +244,7 @@ function getDailyForecastDom(domList, conditionImg, temperature) {
   let nodelistArray = [...nodeList];
   nodelistArray.push(temperatureEl);
   nodelistArray.push(conditionImgEl);
-  console.log(nodelistArray);
+  // console.log(nodelistArray);
   return nodelistArray;
 }
 // get forecast data from api and insert into day
@@ -285,15 +281,54 @@ function updateDailyForecast(
   forecastDomList[5].alt = condition.text;
   forecastDomList[5].title = condition.text;
 }
-let dayZero = getDailyForecastDom(
+let dayZeroEl = getDailyForecastDom(
   ".day-zero > p",
   ".day-zero__condition",
   ".day-zero__temp"
 );
-
-// updateDailyForecast(foreCastObj[0].forecastDay[0].date,);
+let dayOneEl = getDailyForecastDom(
+  ".day-one > p",
+  ".day-one__condition",
+  ".day-one__temp"
+);
+let dayTwoEl = getDailyForecastDom(
+  ".day-two > p",
+  ".day-two__condition",
+  ".day-two__temp"
+);
+let dayThreeEl = getDailyForecastDom(
+  ".day-three > p",
+  ".day-three__condition",
+  ".day-three__temp"
+);
+let dayFourEl = getDailyForecastDom(
+  ".day-four > p",
+  ".day-four__condition",
+  ".day-four__temp"
+);
+let dayFiveEl = getDailyForecastDom(
+  ".day-five > p",
+  ".day-five__condition",
+  ".day-five__temp"
+);
+let daySixEl = getDailyForecastDom(
+  ".day-six > p",
+  ".day-six__condition",
+  ".day-six__temp"
+);
+let allDaysDom = [
+  dayZeroEl,
+  dayOneEl,
+  dayTwoEl,
+  dayThreeEl,
+  dayFourEl,
+  dayFiveEl,
+  daySixEl,
+];
+//
 dataApi.then((data) => {
-  console.log(data);
+  // console.log(data);
+  let index = 0;
   data.forEach((item) => {
     updateDailyForecast(
       item.forecast.forecastday[0].date,
@@ -302,16 +337,8 @@ dataApi.then((data) => {
       `${item.forecast.forecastday[0].day.mintemp_c}°C`,
       item.forecast.forecastday[0].day.condition,
       item.forecast.forecastday[0].day.condition,
-      dayZero
+      allDaysDom[index]
     );
+    index++;
   });
-  updateDailyForecast(
-    data[0].forecast.forecastday[0].date,
-    `${data[0].forecast.forecastday[0].day.daily_chance_of_rain}%`,
-    `${data[0].forecast.forecastday[0].day.maxtemp_c}°C`,
-    `${data[0].forecast.forecastday[0].day.mintemp_c}°C`,
-    data[0].forecast.forecastday[0].day.condition,
-    data[0].forecast.forecastday[0].day.condition,
-    dayZero
-  );
 });

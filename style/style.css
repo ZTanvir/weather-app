@@ -195,7 +195,8 @@ nav {
 }
 
 /* weather forecast */
-:is(.day-zero,
+:is(.forecast-table-head,
+  .day-zero,
   .day-one,
   .day-two,
   .day-three,
@@ -206,5 +207,22 @@ nav {
   grid-template-columns: repeat(5, 1fr);
   align-items: center;
   margin-bottom: 1rem;
-  border-bottom: 1px solid black;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  justify-items: center;
+  gap: 20px;
+}
+
+/* weather forecast temperature*/
+:is(.day-zero__temperature,
+  .day-one__temperature,
+  .day-two__temperature,
+  .day-three__temperature,
+  .day-four__temperature,
+  .day-five__temperature,
+  .day-six__temperature,
+
+) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
