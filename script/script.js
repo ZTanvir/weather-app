@@ -223,3 +223,19 @@ function sunMoonData(sunrise, sunset, moonPhase) {
   sunsetEl.textContent = sunset;
   moonPhaseEl.textContent = moonPhase;
 }
+// get day from date
+function getDayFromDate(date) {
+  const d = new Date(date);
+  const weeks = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = weeks[d.getDay()];
+  return day;
+}
+console.log(getDayFromDate("2023-07-2"));
