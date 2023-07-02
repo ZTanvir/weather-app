@@ -68,20 +68,21 @@ function getDateForForecastapi(numberOfDays) {
 }
 let foreCastObj = [];
 // Weather forecast api call
-async function weatherForcastObj(requestUrlType, location, forecastDataObj) {
+async function weatherForcastObj(requestUrlType, location) {
   let forecastDates = getDateForForecastapi(7);
+  let foreCastObj = [];
   await Promise.all(
     forecastDates.map(async (forecastDate) => {
       let response = await fetch(
         `http://api.weatherapi.com/v1/${requestUrlType}.json?key=d37749f2868143febc2151657230606&q=${location}&dt=${forecastDate}&days=3&hour=12`
       );
       let data = await response.json();
-      forecastDataObj.push(data);
+      foreCastObj.push(data);
     })
   );
+  return foreCastObj;
 }
-weatherForcastObj("forecast", "dhaka", foreCastObj);
-console.log(foreCastObj);
+let dataApi = weatherForcastObj("forecast", "dhaka");
 // for (let i = 1; i <= 7; i++) {
 //   let date = new Date();
 //   // increase date by 1
@@ -245,20 +246,72 @@ function getDailyForecastDom(domList, conditionImg, temperature) {
   let temperatureEl = document.querySelector(temperature);
 
   let nodelistArray = [...nodeList];
-  nodelistArray.push(conditionImgEl);
   nodelistArray.push(temperatureEl);
-
+  nodelistArray.push(conditionImgEl);
   console.log(nodelistArray);
   return nodelistArray;
 }
-getDailyForecastDom(".day-zero > p", ".day-zero__condition", ".day-zero__temp");
 // get forecast data from api and insert into day
 function updateDailyForecast(
   date,
-  condition,
-  temperature,
   chanceOfRain,
   maxTemp,
   minTemp,
+  temperature,
+  condition,
   domList
-) {}
+) {
+  let weatherData = [
+    date,
+    chanceOfRain,
+    maxTemp,
+    minTemp,
+    temperature,
+    condition,
+  ];
+  let forecastDomList = [...domList];
+
+  // current day
+  let day = getDayFromDate(date);
+  forecastDomList[0].textContent = day;
+
+  for (let index = 1; index < 4; index++) {
+    forecastDomList[index].textContent = weatherData[index];
+  }
+  // current weather img
+  forecastDomList[4].textContent = condition.text;
+  // current weather img
+  forecastDomList[5].src = condition.icon;
+  forecastDomList[5].alt = condition.text;
+  forecastDomList[5].title = condition.text;
+}
+let dayZero = getDailyForecastDom(
+  ".day-zero > p",
+  ".day-zero__condition",
+  ".day-zero__temp"
+);
+
+// updateDailyForecast(foreCastObj[0].forecastDay[0].date,);
+dataApi.then((data) => {
+  console.log(data);
+  data.forEach((item) => {
+    updateDailyForecast(
+      item.forecast.forecastday[0].date,
+      `${item.forecast.forecastday[0].day.daily_chance_of_rain}%`,
+      `${item.forecast.forecastday[0].day.maxtemp_c}°C`,
+      `${item.forecast.forecastday[0].day.mintemp_c}°C`,
+      item.forecast.forecastday[0].day.condition,
+      item.forecast.forecastday[0].day.condition,
+      dayZero
+    );
+  });
+  updateDailyForecast(
+    data[0].forecast.forecastday[0].date,
+    `${data[0].forecast.forecastday[0].day.daily_chance_of_rain}%`,
+    `${data[0].forecast.forecastday[0].day.maxtemp_c}°C`,
+    `${data[0].forecast.forecastday[0].day.mintemp_c}°C`,
+    data[0].forecast.forecastday[0].day.condition,
+    data[0].forecast.forecastday[0].day.condition,
+    dayZero
+  );
+});
