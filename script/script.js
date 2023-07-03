@@ -61,56 +61,6 @@ async function weatherForecastObj(requestUrlType, location) {
   );
   return foreCastObj;
 }
-//  return promise with forecast api data
-let dataApi = weatherForecastObj("forecast", "dhaka");
-
-// get astronmy data from api to front
-let date = new Date();
-const [year, month, day] = [
-  date.getFullYear(),
-  date.getMonth(),
-  date.getDate(),
-];
-let today = `${year}-${month + 1}-${day}`;
-weatherAstronomyData("astronomy", "dhaka", today).then((data) => {
-  if (data["error"]) {
-    console.log(data["error"].message);
-  } else {
-    console.log(data);
-    sunMoonData(
-      data.astronomy.astro.sunrise,
-      data.astronomy.astro.sunset,
-      data.astronomy.astro.moon_phase
-    );
-  }
-});
-weatherData("current", "dhaka")
-  .then((data) => {
-    if (data["error"]) {
-      console.log(data["error"].message);
-    } else {
-      console.log(data);
-      console.log(data.current.last_updated);
-      updateTimeDate(data.current.last_updated);
-      updateCityCountry(data.location.name, data.location.country);
-      currentWeatherData(
-        data.current.condition.icon,
-        data.current.temp_c,
-        data.current.condition.text,
-        data.current.feelslike_c
-      );
-      windHumidityUvData(
-        data.current.wind_dir,
-        data.current.wind_kph,
-        data.current.humidity,
-        data.current.uv
-      );
-    }
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-
 // get city and country dom
 function updateCityCountry(city, country) {
   let cityEl = document.querySelector(".city-county__city");
@@ -292,23 +242,80 @@ let allDaysDom = [
   dayFiveEl,
   daySixEl,
 ];
-// get forecast data from api to front
-dataApi.then((data) => {
-  // console.log(data);
-  let index = 0;
-  data.forEach((item) => {
-    updateDailyForecast(
-      item.forecast.forecastday[0].date,
-      `${item.forecast.forecastday[0].day.daily_chance_of_rain}%`,
-      `${item.forecast.forecastday[0].day.maxtemp_c}°C`,
-      `${item.forecast.forecastday[0].day.mintemp_c}°C`,
-      item.forecast.forecastday[0].day.condition,
-      item.forecast.forecastday[0].day.condition,
-      allDaysDom[index]
-    );
-    index++;
+// get astronmy data from api to front
+function astronmyData(location) {
+  let date = new Date();
+  const [year, month, day] = [
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate(),
+  ];
+  let today = `${year}-${month + 1}-${day}`;
+  weatherAstronomyData("astronomy", location, today).then((data) => {
+    if (data["error"]) {
+      console.log(data["error"].message);
+    } else {
+      console.log(data);
+      sunMoonData(
+        data.astronomy.astro.sunrise,
+        data.astronomy.astro.sunset,
+        data.astronomy.astro.moon_phase
+      );
+    }
   });
-});
+}
+// get current weather data from api to front
+function currentData(location) {
+  weatherData("current", location)
+    .then((data) => {
+      if (data["error"]) {
+        console.log(data["error"].message);
+      } else {
+        console.log(data);
+        console.log(data.current.last_updated);
+        updateTimeDate(data.current.last_updated);
+        updateCityCountry(data.location.name, data.location.country);
+        currentWeatherData(
+          data.current.condition.icon,
+          data.current.temp_c,
+          data.current.condition.text,
+          data.current.feelslike_c
+        );
+        windHumidityUvData(
+          data.current.wind_dir,
+          data.current.wind_kph,
+          data.current.humidity,
+          data.current.uv
+        );
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+}
+
+function forecastData(location) {
+  // return promise with forecast api data
+  let dataApi = weatherForecastObj("forecast", location);
+
+  // get forecast data from api to front
+  dataApi.then((data) => {
+    // console.log(data);
+    let index = 0;
+    data.forEach((item) => {
+      updateDailyForecast(
+        item.forecast.forecastday[0].date,
+        `${item.forecast.forecastday[0].day.daily_chance_of_rain}%`,
+        `${item.forecast.forecastday[0].day.maxtemp_c}°C`,
+        `${item.forecast.forecastday[0].day.mintemp_c}°C`,
+        item.forecast.forecastday[0].day.condition,
+        item.forecast.forecastday[0].day.condition,
+        allDaysDom[index]
+      );
+      index++;
+    });
+  });
+}
 formEl.addEventListener("submit", (e) => {
   e.preventDefault();
   let weatherLocation = searchLocationEl.value;
