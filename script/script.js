@@ -1,7 +1,8 @@
 // Select html elements
 const formEl = document.querySelector("#user-input");
 const searchLocationEl = document.querySelector("#search-location");
-const mainEl = document.querySelector(".hide-data");
+const mainEl = document.querySelector("main");
+const footerEl = document.querySelector("footer");
 
 let dayZeroEl = getDailyForecastDom(
   ".day-zero > p",
@@ -325,6 +326,7 @@ formEl.addEventListener("submit", (e) => {
   e.preventDefault();
   let weatherLocation = searchLocationEl.value.trim();
   mainEl.style.display = "grid";
+  footerEl.style.display = "block";
   currentData(weatherLocation);
   astronmyData(weatherLocation);
   forecastData(weatherLocation);
