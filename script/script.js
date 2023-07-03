@@ -293,7 +293,7 @@ function currentData(location) {
       console.log(error);
     });
 }
-
+// get forecast weather data from api to front
 function forecastData(location) {
   // return promise with forecast api data
   let dataApi = weatherForecastObj("forecast", location);
@@ -319,16 +319,9 @@ function forecastData(location) {
 formEl.addEventListener("submit", (e) => {
   e.preventDefault();
   let weatherLocation = searchLocationEl.value;
-  weatherData("current").then((data) => {
-    if (data["error"]) {
-      console.log(data["error"].message);
-    } else {
-    }
-  });
-  // weatherData("current", "london").then((data) => {
-  //   console.log(data);
-  // });
-  formEl.reset();
+  currentData(weatherLocation);
+  astronmyData(weatherLocation);
+  forecastData(weatherLocation);
 });
 
 searchLocationEl.addEventListener("input", (e) => {
