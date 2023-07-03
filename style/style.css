@@ -123,6 +123,15 @@ nav {
   cursor: pointer;
 }
 
+.location-message-style {
+  border: 1px solid white;
+  padding: 0.5rem;
+  text-align: center;
+  background: white;
+  color: rgb(216, 30, 30);
+  border-radius: 1rem;
+}
+
 .fahrenheit-celsius {
   display: flex;
   justify-content: center;

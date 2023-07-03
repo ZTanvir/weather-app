@@ -3,6 +3,7 @@ const formEl = document.querySelector("#user-input");
 const searchLocationEl = document.querySelector("#search-location");
 const mainEl = document.querySelector("main");
 const footerEl = document.querySelector("footer");
+const locationMessageEl = document.querySelector(".search-location-message");
 
 let dayZeroEl = getDailyForecastDom(
   ".day-zero > p",
@@ -274,11 +275,12 @@ function currentData(location) {
   weatherData("current", location)
     .then((data) => {
       if (data["error"]) {
-        console.log("current data");
+        locationMessageEl.textContent = data["error"].message;
+        locationMessageEl.classList.add("location-message-style");
         console.log(data["error"].message);
       } else {
-        console.log(data);
-        console.log(data.current.last_updated);
+        locationMessageEl.textContent = "";
+        locationMessageEl.classList.remove("location-message-style");
         updateTimeDate(data.current.last_updated);
         updateCityCountry(data.location.name, data.location.country);
         currentWeatherData(
