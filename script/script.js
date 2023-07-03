@@ -261,7 +261,6 @@ function astronmyData(location) {
     if (data["error"]) {
       console.log(data["error"].message);
     } else {
-      console.log(data);
       sunMoonData(
         data.astronomy.astro.sunrise,
         data.astronomy.astro.sunset,
@@ -277,10 +276,13 @@ function currentData(location) {
       if (data["error"]) {
         locationMessageEl.textContent = data["error"].message;
         locationMessageEl.classList.add("location-message-style");
-        console.log(data["error"].message);
+        mainEl.style.display = "none";
+        footerEl.style.display = "none";
       } else {
         locationMessageEl.textContent = "";
         locationMessageEl.classList.remove("location-message-style");
+        mainEl.style.display = "grid";
+        footerEl.style.display = "block";
         updateTimeDate(data.current.last_updated);
         updateCityCountry(data.location.name, data.location.country);
         currentWeatherData(
@@ -327,8 +329,6 @@ function forecastData(location) {
 formEl.addEventListener("submit", (e) => {
   e.preventDefault();
   let weatherLocation = searchLocationEl.value.trim();
-  mainEl.style.display = "grid";
-  footerEl.style.display = "block";
   currentData(weatherLocation);
   astronmyData(weatherLocation);
   forecastData(weatherLocation);
