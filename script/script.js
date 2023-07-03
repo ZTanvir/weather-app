@@ -4,6 +4,7 @@ const searchLocationEl = document.querySelector("#search-location");
 const mainEl = document.querySelector("main");
 const footerEl = document.querySelector("footer");
 const locationMessageEl = document.querySelector(".search-location-message");
+const loader = document.querySelector(".loading");
 
 let dayZeroEl = getDailyForecastDom(
   ".day-zero > p",
@@ -50,7 +51,18 @@ let allDaysDom = [
   dayFiveEl,
   daySixEl,
 ];
-
+// show loading
+function showLoading() {
+  loader.classList.add("display");
+  setTimeout(() => {
+    loader.classList.remove("display");
+  }, 5000);
+}
+showLoading();
+// hide loading
+function hideLoading() {
+  loader.classList.remove("display");
+}
 // current weather data
 async function weatherData(requestUrlType, location) {
   try {
