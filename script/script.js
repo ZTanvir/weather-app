@@ -1,6 +1,8 @@
 // Select html elements
 const formEl = document.querySelector("#user-input");
 const searchLocationEl = document.querySelector("#search-location");
+const mainEl = document.querySelector(".hide-data");
+
 let dayZeroEl = getDailyForecastDom(
   ".day-zero > p",
   ".day-zero__condition",
@@ -271,6 +273,7 @@ function currentData(location) {
   weatherData("current", location)
     .then((data) => {
       if (data["error"]) {
+        console.log("current data");
         console.log(data["error"].message);
       } else {
         console.log(data);
@@ -320,7 +323,8 @@ function forecastData(location) {
 }
 formEl.addEventListener("submit", (e) => {
   e.preventDefault();
-  let weatherLocation = searchLocationEl.value;
+  let weatherLocation = searchLocationEl.value.trim();
+  mainEl.style.display = "grid";
   currentData(weatherLocation);
   astronmyData(weatherLocation);
   forecastData(weatherLocation);
