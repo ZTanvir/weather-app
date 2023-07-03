@@ -1,6 +1,51 @@
 // Select html elements
 const formEl = document.querySelector("#user-input");
 const searchLocationEl = document.querySelector("#search-location");
+let dayZeroEl = getDailyForecastDom(
+  ".day-zero > p",
+  ".day-zero__condition",
+  ".day-zero__temp"
+);
+let dayOneEl = getDailyForecastDom(
+  ".day-one > p",
+  ".day-one__condition",
+  ".day-one__temp"
+);
+let dayTwoEl = getDailyForecastDom(
+  ".day-two > p",
+  ".day-two__condition",
+  ".day-two__temp"
+);
+let dayThreeEl = getDailyForecastDom(
+  ".day-three > p",
+  ".day-three__condition",
+  ".day-three__temp"
+);
+let dayFourEl = getDailyForecastDom(
+  ".day-four > p",
+  ".day-four__condition",
+  ".day-four__temp"
+);
+let dayFiveEl = getDailyForecastDom(
+  ".day-five > p",
+  ".day-five__condition",
+  ".day-five__temp"
+);
+let daySixEl = getDailyForecastDom(
+  ".day-six > p",
+  ".day-six__condition",
+  ".day-six__temp"
+);
+// insert each day forecast dom into an array
+let allDaysDom = [
+  dayZeroEl,
+  dayOneEl,
+  dayTwoEl,
+  dayThreeEl,
+  dayFourEl,
+  dayFiveEl,
+  daySixEl,
+];
 
 // current weather data
 async function weatherData(requestUrlType, location) {
@@ -198,50 +243,7 @@ function updateDailyForecast(
   forecastDomList[5].alt = condition.text;
   forecastDomList[5].title = condition.text;
 }
-let dayZeroEl = getDailyForecastDom(
-  ".day-zero > p",
-  ".day-zero__condition",
-  ".day-zero__temp"
-);
-let dayOneEl = getDailyForecastDom(
-  ".day-one > p",
-  ".day-one__condition",
-  ".day-one__temp"
-);
-let dayTwoEl = getDailyForecastDom(
-  ".day-two > p",
-  ".day-two__condition",
-  ".day-two__temp"
-);
-let dayThreeEl = getDailyForecastDom(
-  ".day-three > p",
-  ".day-three__condition",
-  ".day-three__temp"
-);
-let dayFourEl = getDailyForecastDom(
-  ".day-four > p",
-  ".day-four__condition",
-  ".day-four__temp"
-);
-let dayFiveEl = getDailyForecastDom(
-  ".day-five > p",
-  ".day-five__condition",
-  ".day-five__temp"
-);
-let daySixEl = getDailyForecastDom(
-  ".day-six > p",
-  ".day-six__condition",
-  ".day-six__temp"
-);
-let allDaysDom = [
-  dayZeroEl,
-  dayOneEl,
-  dayTwoEl,
-  dayThreeEl,
-  dayFourEl,
-  dayFiveEl,
-  daySixEl,
-];
+
 // get astronmy data from api to front
 function astronmyData(location) {
   let date = new Date();
