@@ -112,6 +112,7 @@ nav {
   height: 2.5rem;
   border-radius: 2rem;
   padding: 1rem;
+  border: 2px solid white;
 }
 
 .submit-btn {
@@ -137,7 +138,13 @@ nav {
   padding: 0.5rem 2rem;
   cursor: pointer;
   border-radius: 1rem;
+  border: 2px solid white;
 }
+
+.temperature-convertion-btn:hover {
+  border: 2px solid black;
+}
+
 
 /* city country section */
 .city-county>h2 {
