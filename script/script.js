@@ -58,7 +58,6 @@ function showLoading() {
     loader.classList.remove("display");
   }, 5000);
 }
-showLoading();
 // hide loading
 function hideLoading() {
   loader.classList.remove("display");
@@ -66,6 +65,7 @@ function hideLoading() {
 // current weather data
 async function weatherData(requestUrlType, location) {
   try {
+    showLoading();
     let response = await fetch(
       `http://api.weatherapi.com/v1/${requestUrlType}.json?key=d37749f2868143febc2151657230606&q=${location}`
     );
@@ -117,6 +117,8 @@ async function weatherForecastObj(requestUrlType, location) {
         `http://api.weatherapi.com/v1/${requestUrlType}.json?key=d37749f2868143febc2151657230606&q=${location}&dt=${forecastDate}&days=3&hour=12`
       );
       let data = await response.json();
+      // hide loading screen
+      hideLoading();
       foreCastObj.push(data);
     })
   );
