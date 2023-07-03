@@ -2,26 +2,6 @@
 const formEl = document.querySelector("#user-input");
 const searchLocationEl = document.querySelector("#search-location");
 
-formEl.addEventListener("submit", (e) => {
-  e.preventDefault();
-  let weatherLocation = searchLocationEl.value;
-  weatherData("current").then((data) => {
-    if (data["error"]) {
-      console.log(data["error"].message);
-    } else {
-    }
-  });
-  // weatherData("current", "london").then((data) => {
-  //   console.log(data);
-  // });
-  formEl.reset();
-});
-
-searchLocationEl.addEventListener("input", (e) => {
-  if (!searchLocationEl.value == "") {
-    // console.log(searchLocationEl.value);
-  }
-});
 // current weather data
 async function weatherData(requestUrlType, location) {
   try {
@@ -46,7 +26,7 @@ async function weatherAstronomyData(requestUrlType, location, todaysDate) {
     console.log(err);
   }
 }
-// store weather forecast data
+// store weather forecast date
 function getDateForForecastapi(numberOfDays) {
   // store the date that will be pass to the weather forecast api
   let forecastDates = [];
@@ -66,9 +46,8 @@ function getDateForForecastapi(numberOfDays) {
   }
   return forecastDates;
 }
-let foreCastObj = [];
 // Weather forecast api call
-async function weatherForcastObj(requestUrlType, location) {
+async function weatherForecastObj(requestUrlType, location) {
   let forecastDates = getDateForForecastapi(7);
   let foreCastObj = [];
   await Promise.all(
@@ -82,21 +61,10 @@ async function weatherForcastObj(requestUrlType, location) {
   );
   return foreCastObj;
 }
-let dataApi = weatherForcastObj("forecast", "dhaka");
-for (let i = 1; i <= 7; i++) {
-  let date = new Date();
-  // increase date by 1
-  // pass the date to weather forecast parameter to get that days forecast
-  const [year, month, day] = [
-    date.getFullYear(),
-    date.getMonth() + 1,
-    date.getDate(date.setDate(date.getDate() + i)),
-  ];
-  let forecastDate = `${year}-${month + 1}-${day}`;
+//  return promise with forecast api data
+let dataApi = weatherForecastObj("forecast", "dhaka");
 
-  console.log(forecastDate);
-}
-
+// get astronmy data from api to front
 let date = new Date();
 const [year, month, day] = [
   date.getFullYear(),
@@ -104,7 +72,6 @@ const [year, month, day] = [
   date.getDate(),
 ];
 let today = `${year}-${month + 1}-${day}`;
-console.log(year, month, day, today);
 weatherAstronomyData("astronomy", "dhaka", today).then((data) => {
   if (data["error"]) {
     console.log(data["error"].message);
@@ -325,7 +292,7 @@ let allDaysDom = [
   dayFiveEl,
   daySixEl,
 ];
-//
+// get forecast data from api to front
 dataApi.then((data) => {
   // console.log(data);
   let index = 0;
@@ -341,4 +308,24 @@ dataApi.then((data) => {
     );
     index++;
   });
+});
+formEl.addEventListener("submit", (e) => {
+  e.preventDefault();
+  let weatherLocation = searchLocationEl.value;
+  weatherData("current").then((data) => {
+    if (data["error"]) {
+      console.log(data["error"].message);
+    } else {
+    }
+  });
+  // weatherData("current", "london").then((data) => {
+  //   console.log(data);
+  // });
+  formEl.reset();
+});
+
+searchLocationEl.addEventListener("input", (e) => {
+  if (!searchLocationEl.value == "") {
+    // console.log(searchLocationEl.value);
+  }
 });
