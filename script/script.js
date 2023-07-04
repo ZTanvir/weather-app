@@ -308,9 +308,9 @@ function currentData(location, convertFahrenheit) {
         if (convertFahrenheit) {
           currentWeatherData(
             data.current.condition.icon,
-            `${data.current.temp_f}°f`,
+            `${data.current.temp_f}°F`,
             data.current.condition.text,
-            `${data.current.feelslike_f}°f`
+            `${data.current.feelslike_f}°F`
           );
         } else {
           currentWeatherData(
