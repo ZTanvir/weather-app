@@ -60,12 +60,16 @@ const allDaysDom = [
 // show loading
 function showLoading() {
   loader.classList.add("display");
+  mainEl.style.display = "none";
+  footerEl.style.display = "none";
   setTimeout(() => {
     loader.classList.remove("display");
   }, 5000);
 }
 // hide loading
 function hideLoading() {
+  mainEl.style.display = "grid";
+  footerEl.style.display = "block";
   loader.classList.remove("display");
 }
 // current weather data
