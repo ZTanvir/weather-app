@@ -315,9 +315,9 @@ function currentData(location, convertFahrenheit) {
         } else {
           currentWeatherData(
             data.current.condition.icon,
-            `${data.current.temp_f}°C`,
+            `${data.current.temp_c}°C`,
             data.current.condition.text,
-            `${data.current.feelslike_f}°C`
+            `${data.current.feelslike_c}°C`
           );
         }
         windHumidityUvData(
