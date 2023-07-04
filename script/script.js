@@ -1,8 +1,10 @@
 // Select html elements
 const formEl = document.querySelector("#user-input");
 const searchLocationEl = document.querySelector("#search-location");
-const celsiusConvert = document.querySelector(".fahrenheit-celsius__celsius");
-const fahrenheitConvert = document.querySelector(
+const celsiusConvertBtn = document.querySelector(
+  ".fahrenheit-celsius__celsius"
+);
+const fahrenheitConvertBtn = document.querySelector(
   ".fahrenheit-celsius__fahrenheit"
 );
 const mainEl = document.querySelector("main");
@@ -380,7 +382,7 @@ searchLocationEl.addEventListener("input", (e) => {
   }
 });
 //
-celsiusConvert.addEventListener("click", (e) => {
+celsiusConvertBtn.addEventListener("click", (e) => {
   const weatherLocation = searchLocationEl.value.trim();
   if (weatherLocation !== "") {
     currentData(weatherLocation, false);
@@ -389,7 +391,7 @@ celsiusConvert.addEventListener("click", (e) => {
   }
 });
 //
-fahrenheitConvert.addEventListener("click", (e) => {
+fahrenheitConvertBtn.addEventListener("click", (e) => {
   const weatherLocation = searchLocationEl.value.trim();
   if (weatherLocation !== "") {
     currentData(weatherLocation, true);
