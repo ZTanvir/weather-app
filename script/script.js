@@ -381,7 +381,6 @@ searchLocationEl.addEventListener("input", (e) => {
 });
 //
 celsiusConvert.addEventListener("click", (e) => {
-  console.log("celsius");
   const weatherLocation = searchLocationEl.value.trim();
   if (weatherLocation !== "") {
     currentData(weatherLocation, false);
@@ -391,7 +390,6 @@ celsiusConvert.addEventListener("click", (e) => {
 });
 //
 fahrenheitConvert.addEventListener("click", (e) => {
-  console.log("fahrenheit");
   const weatherLocation = searchLocationEl.value.trim();
   if (weatherLocation !== "") {
     currentData(weatherLocation, true);
