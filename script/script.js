@@ -1,6 +1,10 @@
 // Select html elements
 const formEl = document.querySelector("#user-input");
 const searchLocationEl = document.querySelector("#search-location");
+const celsiusConvert = document.querySelector(".fahrenheit-celsius__celsius");
+const fahrenheitConvert = document.querySelector(
+  ".fahrenheit-celsius__fahrenheit"
+);
 const mainEl = document.querySelector("main");
 const footerEl = document.querySelector("footer");
 const locationMessageEl = document.querySelector(".search-location-message");
@@ -340,6 +344,7 @@ function forecastData(location) {
     });
   });
 }
+// Show location weather data when submit the form
 formEl.addEventListener("submit", (e) => {
   e.preventDefault();
   let weatherLocation = searchLocationEl.value.trim();
@@ -352,4 +357,12 @@ searchLocationEl.addEventListener("input", (e) => {
   if (!searchLocationEl.value == "") {
     // console.log(searchLocationEl.value);
   }
+});
+//
+celsiusConvert.addEventListener("click", (e) => {
+  console.log("celsius");
+});
+//
+fahrenheitConvert.addEventListener("click", (e) => {
+  console.log("fahrenheit");
 });
