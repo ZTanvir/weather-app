@@ -175,10 +175,10 @@ function currentWeatherData(weatherImg, temperature, condition, feelsLike) {
   weatherImage.alt = condition;
   weatherImage.title = condition;
 
-  weatherTemperature.textContent = `${temperature}°C`;
+  weatherTemperature.textContent = `${temperature}`;
   weatherCondition.textContent = condition;
 
-  weatherFeelsLike.textContent = `${feelsLike}°C`;
+  weatherFeelsLike.textContent = `${feelsLike}`;
 }
 
 // get wind ,humidity,uv data
@@ -288,7 +288,7 @@ function astronmyData(location) {
   });
 }
 // get current weather data from api to front
-function currentData(location) {
+function currentData(location, convertFahrenheit) {
   weatherData("current", location)
     .then((data) => {
       if (data["error"]) {
@@ -303,12 +303,21 @@ function currentData(location) {
         footerEl.style.display = "block";
         updateTimeDate(data.current.last_updated);
         updateCityCountry(data.location.name, data.location.country);
-        currentWeatherData(
-          data.current.condition.icon,
-          data.current.temp_c,
-          data.current.condition.text,
-          data.current.feelslike_c
-        );
+        if (convertFahrenheit) {
+          currentWeatherData(
+            data.current.condition.icon,
+            `${data.current.temp_f}°f`,
+            data.current.condition.text,
+            `${data.current.feelslike_f}°f`
+          );
+        } else {
+          currentWeatherData(
+            data.current.condition.icon,
+            `${data.current.temp_f}°C`,
+            data.current.condition.text,
+            `${data.current.feelslike_f}°C`
+          );
+        }
         windHumidityUvData(
           data.current.wind_dir,
           data.current.wind_kph,
@@ -322,7 +331,7 @@ function currentData(location) {
     });
 }
 // get forecast weather data from api to front
-function forecastData(location) {
+function forecastData(location, convertFahrenheit) {
   // return promise with forecast api data
   let dataApi = weatherForecastObj("forecast", location);
 
@@ -331,15 +340,27 @@ function forecastData(location) {
     // console.log(data);
     let index = 0;
     data.forEach((item) => {
-      updateDailyForecast(
-        item.forecast.forecastday[0].date,
-        `${item.forecast.forecastday[0].day.daily_chance_of_rain}%`,
-        `${item.forecast.forecastday[0].day.maxtemp_c}°C`,
-        `${item.forecast.forecastday[0].day.mintemp_c}°C`,
-        item.forecast.forecastday[0].day.condition,
-        item.forecast.forecastday[0].day.condition,
-        allDaysDom[index]
-      );
+      if (convertFahrenheit) {
+        updateDailyForecast(
+          item.forecast.forecastday[0].date,
+          `${item.forecast.forecastday[0].day.daily_chance_of_rain}%`,
+          `${item.forecast.forecastday[0].day.maxtemp_f}°f`,
+          `${item.forecast.forecastday[0].day.mintemp_f}°f`,
+          item.forecast.forecastday[0].day.condition,
+          item.forecast.forecastday[0].day.condition,
+          allDaysDom[index]
+        );
+      } else {
+        updateDailyForecast(
+          item.forecast.forecastday[0].date,
+          `${item.forecast.forecastday[0].day.daily_chance_of_rain}%`,
+          `${item.forecast.forecastday[0].day.maxtemp_c}°C`,
+          `${item.forecast.forecastday[0].day.mintemp_c}°C`,
+          item.forecast.forecastday[0].day.condition,
+          item.forecast.forecastday[0].day.condition,
+          allDaysDom[index]
+        );
+      }
       index++;
     });
   });
@@ -347,10 +368,10 @@ function forecastData(location) {
 // Show location weather data when submit the form
 formEl.addEventListener("submit", (e) => {
   e.preventDefault();
-  let weatherLocation = searchLocationEl.value.trim();
-  currentData(weatherLocation);
+  const weatherLocation = searchLocationEl.value.trim();
+  currentData(weatherLocation, false);
   astronmyData(weatherLocation);
-  forecastData(weatherLocation);
+  forecastData(weatherLocation, false);
 });
 
 searchLocationEl.addEventListener("input", (e) => {
@@ -361,8 +382,20 @@ searchLocationEl.addEventListener("input", (e) => {
 //
 celsiusConvert.addEventListener("click", (e) => {
   console.log("celsius");
+  const weatherLocation = searchLocationEl.value.trim();
+  if (weatherLocation !== "") {
+    currentData(weatherLocation, false);
+    astronmyData(weatherLocation);
+    forecastData(weatherLocation, false);
+  }
 });
 //
 fahrenheitConvert.addEventListener("click", (e) => {
   console.log("fahrenheit");
+  const weatherLocation = searchLocationEl.value.trim();
+  if (weatherLocation !== "") {
+    currentData(weatherLocation, true);
+    astronmyData(weatherLocation);
+    forecastData(weatherLocation, true);
+  }
 });
