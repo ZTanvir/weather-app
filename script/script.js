@@ -6,43 +6,43 @@ const footerEl = document.querySelector("footer");
 const locationMessageEl = document.querySelector(".search-location-message");
 const loader = document.querySelector(".loading");
 
-let dayZeroEl = getDailyForecastDom(
+const dayZeroEl = getDailyForecastDom(
   ".day-zero > p",
   ".day-zero__condition",
   ".day-zero__temp"
 );
-let dayOneEl = getDailyForecastDom(
+const dayOneEl = getDailyForecastDom(
   ".day-one > p",
   ".day-one__condition",
   ".day-one__temp"
 );
-let dayTwoEl = getDailyForecastDom(
+const dayTwoEl = getDailyForecastDom(
   ".day-two > p",
   ".day-two__condition",
   ".day-two__temp"
 );
-let dayThreeEl = getDailyForecastDom(
+const dayThreeEl = getDailyForecastDom(
   ".day-three > p",
   ".day-three__condition",
   ".day-three__temp"
 );
-let dayFourEl = getDailyForecastDom(
+const dayFourEl = getDailyForecastDom(
   ".day-four > p",
   ".day-four__condition",
   ".day-four__temp"
 );
-let dayFiveEl = getDailyForecastDom(
+const dayFiveEl = getDailyForecastDom(
   ".day-five > p",
   ".day-five__condition",
   ".day-five__temp"
 );
-let daySixEl = getDailyForecastDom(
+const daySixEl = getDailyForecastDom(
   ".day-six > p",
   ".day-six__condition",
   ".day-six__temp"
 );
 // insert each day forecast dom into an array
-let allDaysDom = [
+const allDaysDom = [
   dayZeroEl,
   dayOneEl,
   dayTwoEl,
