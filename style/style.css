@@ -110,7 +110,7 @@ nav {
 #search-location {
   width: 16rem;
   height: 2.5rem;
-  border-radius: 2rem;
+  border-radius: 0.25rem;
   padding: 1rem;
   border: 2px solid white;
 }
