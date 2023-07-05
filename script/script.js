@@ -11,6 +11,7 @@ const mainEl = document.querySelector("main");
 const footerEl = document.querySelector("footer");
 const locationMessageEl = document.querySelector(".search-location-message");
 const loader = document.querySelector(".loading");
+const resultBox = document.querySelector(".result-box");
 
 const dayZeroEl = getDailyForecastDom(
   ".day-zero > p",
@@ -391,8 +392,9 @@ formEl.addEventListener("submit", (e) => {
 // predict weather location based on user input
 searchLocationEl.addEventListener("input", (e) => {
   const weatherLocation = searchLocationEl.value.trim();
-  // collect all possible location
+  // collect all possible location from api
   let possibleLocation = [];
+  let matchLocation = [];
   if (searchLocationEl.value.length) {
     if (weatherLocation !== "") {
       searchWeatherLocation(weatherLocation).then((locationData) => {
@@ -402,11 +404,29 @@ searchLocationEl.addEventListener("input", (e) => {
             possibleLocation.push(item.name);
           }
         });
+        // store the location which match with user input
+        matchLocation = possibleLocation.filter((item) => {
+          return item.toLowerCase().includes(weatherLocation.toLowerCase());
+        });
+        console.log(possibleLocation, matchLocation);
+        // take matchLocation item and render it to suggestion
+        showPossibleLocation(matchLocation);
       });
     }
   }
-  console.log(possibleLocation);
 });
+// show possible location in the result box
+function showPossibleLocation(locationList) {
+  let insertLocation = locationList.map((item) => {
+    return "<li onclick=addDataInput(this)>" + item + "</li>";
+  });
+  resultBox.innerHTML = "<ul>" + insertLocation.join("") + "</ul>";
+}
+// add possible result data to the input box
+function addDataInput(list) {
+  searchLocationEl.value = list.textContent;
+  resultBox.innerHTML = "";
+}
 // convert weather data from fahrenheit to celsius
 celsiusConvertBtn.addEventListener("click", (e) => {
   const weatherLocation = searchLocationEl.value.trim();
