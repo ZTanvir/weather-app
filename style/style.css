@@ -101,27 +101,37 @@ nav {
 }
 
 #user-input {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
+  background-color: white;
+  border-radius: 0.25rem;
+  overflow: hidden;
 }
 
 #search-location {
   width: 16rem;
   height: 2.5rem;
-  border-radius: 0.25rem;
   padding: 1rem;
   border: 2px solid white;
 }
 
 .submit-btn {
   border: none;
-  background: none;
+  /* background: none;
   position: absolute;
-  right: 8px;
+  right: 8px; */
   cursor: pointer;
+  background: transparent;
+  font-size: 1.25rem;
+  padding: 0;
+  width: 100%;
+
 }
+
+.user-input__box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 .location-message-style {
   border: 1px solid white;
