@@ -391,12 +391,21 @@ formEl.addEventListener("submit", (e) => {
 // predict weather location based on user input
 searchLocationEl.addEventListener("input", (e) => {
   const weatherLocation = searchLocationEl.value.trim();
+  // collect all possible location
+  let possibleLocation = [];
   if (searchLocationEl.value.length) {
-    // console.log(searchLocationEl.value);
-    searchWeatherLocation(weatherLocation).then((data) => {
-      console.log(data);
-    });
+    if (weatherLocation !== "") {
+      searchWeatherLocation(weatherLocation).then((locationData) => {
+        locationData.forEach((item) => {
+          // check if the location is not already in the array
+          if (!possibleLocation.includes(item.name)) {
+            possibleLocation.push(item.name);
+          }
+        });
+      });
+    }
   }
+  console.log(possibleLocation);
 });
 // convert weather data from fahrenheit to celsius
 celsiusConvertBtn.addEventListener("click", (e) => {
