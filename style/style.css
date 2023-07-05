@@ -115,9 +115,6 @@ nav {
 
 .submit-btn {
   border: none;
-  /* background: none;
-  position: absolute;
-  right: 8px; */
   cursor: pointer;
   background: transparent;
   font-size: 1.25rem;
@@ -132,6 +129,23 @@ nav {
   align-items: center;
 }
 
+.result-box>ul {
+  margin: 0;
+  padding: 0;
+}
+
+.result-box>ul>li {
+  border-top: 1px solid black;
+  cursor: pointer;
+  padding: 1rem;
+  list-style: none;
+  color: black;
+}
+
+.result-box>ul>li:hover {
+  background-color: lightblue;
+  color: white;
+}
 
 .location-message-style {
   border: 1px solid white;
