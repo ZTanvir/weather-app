@@ -97,6 +97,15 @@ async function weatherAstronomyData(requestUrlType, location, todaysDate) {
     console.log(err);
   }
 }
+// search possible weather location in the api
+async function searchWeatherLocation(location) {
+  let weatherData =
+    await fetch(`http://api.weatherapi.com/v1/search.json?key=d37749f2868143febc2151657230606&q=${location}
+  `);
+  let response = await weatherData.json();
+  return response;
+}
+
 // store weather forecast date
 function getDateForForecastapi(numberOfDays) {
   // store the date that will be pass to the weather forecast api
@@ -379,13 +388,17 @@ formEl.addEventListener("submit", (e) => {
   astronmyData(weatherLocation);
   forecastData(weatherLocation, false);
 });
-
+// predict weather location based on user input
 searchLocationEl.addEventListener("input", (e) => {
-  if (!searchLocationEl.value == "") {
+  const weatherLocation = searchLocationEl.value.trim();
+  if (searchLocationEl.value.length) {
     // console.log(searchLocationEl.value);
+    searchWeatherLocation(weatherLocation).then((data) => {
+      console.log(data);
+    });
   }
 });
-//
+// convert weather data from fahrenheit to celsius
 celsiusConvertBtn.addEventListener("click", (e) => {
   const weatherLocation = searchLocationEl.value.trim();
   if (weatherLocation !== "") {
@@ -394,7 +407,7 @@ celsiusConvertBtn.addEventListener("click", (e) => {
     forecastData(weatherLocation, false);
   }
 });
-//
+// convert weather data from celsius to fahrenheit
 fahrenheitConvertBtn.addEventListener("click", (e) => {
   const weatherLocation = searchLocationEl.value.trim();
   if (weatherLocation !== "") {
