@@ -354,31 +354,36 @@ function forecastData(location, isFahrenheit) {
 
   // get forecast data from api to front
   dataApi.then((data) => {
-    // console.log(data);
+    console.log(data);
     let index = 0;
     data.forEach((item) => {
-      if (isFahrenheit) {
-        updateDailyForecast(
-          item.forecast.forecastday[0].date,
-          `${item.forecast.forecastday[0].day.daily_chance_of_rain}%`,
-          `${item.forecast.forecastday[0].day.maxtemp_f}°f`,
-          `${item.forecast.forecastday[0].day.mintemp_f}°f`,
-          item.forecast.forecastday[0].day.condition,
-          item.forecast.forecastday[0].day.condition,
-          allDaysDom[index]
-        );
+      if (item["error"]) {
+        mainEl.style.display = "none";
+        footerEl.style.display = "none";
       } else {
-        updateDailyForecast(
-          item.forecast.forecastday[0].date,
-          `${item.forecast.forecastday[0].day.daily_chance_of_rain}%`,
-          `${item.forecast.forecastday[0].day.maxtemp_c}°C`,
-          `${item.forecast.forecastday[0].day.mintemp_c}°C`,
-          item.forecast.forecastday[0].day.condition,
-          item.forecast.forecastday[0].day.condition,
-          allDaysDom[index]
-        );
+        if (isFahrenheit) {
+          updateDailyForecast(
+            item.forecast.forecastday[0].date,
+            `${item.forecast.forecastday[0].day.daily_chance_of_rain}%`,
+            `${item.forecast.forecastday[0].day.maxtemp_f}°f`,
+            `${item.forecast.forecastday[0].day.mintemp_f}°f`,
+            item.forecast.forecastday[0].day.condition,
+            item.forecast.forecastday[0].day.condition,
+            allDaysDom[index]
+          );
+        } else {
+          updateDailyForecast(
+            item.forecast.forecastday[0].date,
+            `${item.forecast.forecastday[0].day.daily_chance_of_rain}%`,
+            `${item.forecast.forecastday[0].day.maxtemp_c}°C`,
+            `${item.forecast.forecastday[0].day.mintemp_c}°C`,
+            item.forecast.forecastday[0].day.condition,
+            item.forecast.forecastday[0].day.condition,
+            allDaysDom[index]
+          );
+        }
+        index++;
       }
-      index++;
     });
   });
 }
@@ -409,7 +414,6 @@ searchLocationEl.addEventListener("input", (e) => {
         matchLocation = possibleLocation.filter((item) => {
           return item.toLowerCase().includes(weatherLocation.toLowerCase());
         });
-        console.log(possibleLocation, matchLocation);
         // take matchLocation item and render it to suggestion
         showPossibleLocation(matchLocation);
       });
