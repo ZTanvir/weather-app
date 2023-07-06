@@ -413,6 +413,8 @@ searchLocationEl.addEventListener("input", (e) => {
         showPossibleLocation(matchLocation);
       });
     }
+  } else if (weatherLocation == "") {
+    resultBox.innerHTML = "";
   }
 });
 // show possible location in the result box
