@@ -79,7 +79,7 @@ async function weatherData(requestUrlType, location) {
   try {
     showLoading();
     let response = await fetch(
-      `http://api.weatherapi.com/v1/${requestUrlType}.json?key=d37749f2868143febc2151657230606&q=${location}`
+      `https://api.weatherapi.com/v1/${requestUrlType}.json?key=d37749f2868143febc2151657230606&q=${location}`
     );
     let data = await response.json();
     return data;
@@ -91,7 +91,7 @@ async function weatherData(requestUrlType, location) {
 async function weatherAstronomyData(requestUrlType, location, todaysDate) {
   try {
     let response = await fetch(
-      `http://api.weatherapi.com/v1/${requestUrlType}.json?key=d37749f2868143febc2151657230606&q=${location}&dt=${todaysDate}`
+      `https://api.weatherapi.com/v1/${requestUrlType}.json?key=d37749f2868143febc2151657230606&q=${location}&dt=${todaysDate}`
     );
     let data = await response.json();
     return data;
@@ -102,7 +102,7 @@ async function weatherAstronomyData(requestUrlType, location, todaysDate) {
 // search possible weather location in the api
 async function searchWeatherLocation(location) {
   let weatherData =
-    await fetch(`http://api.weatherapi.com/v1/search.json?key=d37749f2868143febc2151657230606&q=${location}
+    await fetch(`https://api.weatherapi.com/v1/search.json?key=d37749f2868143febc2151657230606&q=${location}
   `);
   let response = await weatherData.json();
   return response;
@@ -135,7 +135,7 @@ async function weatherForecastObj(requestUrlType, location) {
   await Promise.all(
     forecastDates.map(async (forecastDate) => {
       let response = await fetch(
-        `http://api.weatherapi.com/v1/${requestUrlType}.json?key=d37749f2868143febc2151657230606&q=${location}&dt=${forecastDate}&days=3&hour=12`
+        `https://api.weatherapi.com/v1/${requestUrlType}.json?key=d37749f2868143febc2151657230606&q=${location}&dt=${forecastDate}&days=3&hour=12`
       );
       let data = await response.json();
       // hide loading screen
