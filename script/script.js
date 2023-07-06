@@ -305,7 +305,7 @@ function astronmyData(location) {
   });
 }
 // get current weather data from api to front
-function currentData(location, convertFahrenheit) {
+function currentData(location, isFahrenheit) {
   weatherData("current", location)
     .then((data) => {
       if (data["error"]) {
@@ -320,7 +320,7 @@ function currentData(location, convertFahrenheit) {
         footerEl.style.display = "block";
         updateTimeDate(data.current.last_updated);
         updateCityCountry(data.location.name, data.location.country);
-        if (convertFahrenheit) {
+        if (isFahrenheit) {
           currentWeatherData(
             data.current.condition.icon,
             `${data.current.temp_f}°F`,
@@ -348,7 +348,7 @@ function currentData(location, convertFahrenheit) {
     });
 }
 // get forecast weather data from api to front
-function forecastData(location, convertFahrenheit) {
+function forecastData(location, isFahrenheit) {
   // return promise with forecast api data
   let dataApi = weatherForecastObj("forecast", location);
 
@@ -357,7 +357,7 @@ function forecastData(location, convertFahrenheit) {
     // console.log(data);
     let index = 0;
     data.forEach((item) => {
-      if (convertFahrenheit) {
+      if (isFahrenheit) {
         updateDailyForecast(
           item.forecast.forecastday[0].date,
           `${item.forecast.forecastday[0].day.daily_chance_of_rain}%`,

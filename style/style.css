@@ -309,6 +309,7 @@ nav {
 
 footer span>a {
   color: white;
+  text-decoration: none;
 }
 
 .hide-data {
