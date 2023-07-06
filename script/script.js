@@ -1,6 +1,7 @@
 // Select html elements
 const formEl = document.querySelector("#user-input");
 const searchLocationEl = document.querySelector("#search-location");
+const submitBtn = document.querySelector(".submit-btn");
 const celsiusConvertBtn = document.querySelector(
   ".fahrenheit-celsius__celsius"
 );
@@ -428,6 +429,7 @@ function showPossibleLocation(locationList) {
 function addDataInput(list) {
   searchLocationEl.value = list.textContent;
   resultBox.innerHTML = "";
+  submitBtn.click();
 }
 // convert weather data from fahrenheit to celsius
 celsiusConvertBtn.addEventListener("click", (e) => {
