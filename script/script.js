@@ -354,7 +354,6 @@ function forecastData(location, isFahrenheit) {
 
   // get forecast data from api to front
   dataApi.then((data) => {
-    console.log(data);
     let index = 0;
     data.forEach((item) => {
       if (item["error"]) {
